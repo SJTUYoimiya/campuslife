@@ -1,8 +1,11 @@
 """
 This module is used to handle data in json format.
 """
+import os.path
 import json
 from dataclasses import dataclass
+
+WORKSPACE = os.path.dirname(os.path.dirname(__file__))
 
 def load_data(filepath: str = 'configs.json') -> dict[str, str]:
     """
@@ -18,6 +21,7 @@ def load_data(filepath: str = 'configs.json') -> dict[str, str]:
     dict[str, str]
         The data in the json file.
     """
+    filepath = os.path.join(WORKSPACE, filepath)
     try:
         with open(filepath, 'r') as f:
             data = json.load(f)
@@ -41,6 +45,7 @@ def save_data(data: dict[str, str] | list[dict], filepath: str = 'configs.json')
     TypeError
         If the data type mismatch.
     """
+    filepath = os.path.join(WORKSPACE, filepath)
     current_data = load_data(filepath)
 
     if isinstance(current_data, dict) and isinstance(data, dict):
@@ -80,6 +85,7 @@ class Config:
     path: str = 'configs.json'
 
     def __post_init__(self):
+        self.path = os.path.join(WORKSPACE, self.path)
         if not self.value and self.flag:
             self.value =load_data(self.path)[self.name]
             self.flag = False

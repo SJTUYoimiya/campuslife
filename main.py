@@ -7,8 +7,12 @@ from scripts.network.charge_service import Charge
 def login():
     AccountService()
 
+def charge_status():
+    user_info = Config('user_info').value
+    user_id = user_info['userid']
+    Charge(user_id).charge_status
+
 def charge():
-    login()
     user_info = Config('user_info').value
     user_id = user_info['userid']
 
@@ -27,6 +31,8 @@ def main():
         login()
     elif args.func == 'charge':
         charge()
+    elif args.func == 'status':
+        charge_status()
     else:
         exit(1)
 
