@@ -134,19 +134,21 @@ class AccountService:
             self.send_message(max_message_id)
             messages = res_data['result2']
             bark_wrapper(messages)
-            save_data(messages)
+            save_data(messages, 'messages.json')
+            print(messages)
         else:
             print("No new message.")
             return None
     
     def send_message(self, max_message_id):
         order_data = {
-            "userid": self.user_info['userid'],
             "phone": self.user_info['phone'],
+            "userid": self.user_info['userid'],
             "username": self.user_info['username'],
             "ordertype": "setmaxmsgid",
             "maxmsgid": str(max_message_id),
-            "origin": "cloud"
+            "acid": self.user_info['acid'],
+            "origin": "cloud",
         }
 
         _ = post(self.url, order_data)
