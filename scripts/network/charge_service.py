@@ -52,8 +52,8 @@ class Charge:
         res_data = post(url, order_data)['result1']
         if res_data:
             self.charge_status = res_data[0]
-            print(f'You are charging now at {self.charge_status['position']} since {self.charge_status['bgtime']}')
-            print(f'Duration: {self.charge_status['duration']}, Amount: ¥{self.charge_status['amount']}')
+            print(f"You are charging now at {self.charge_status['position']} since {self.charge_status['bgtime']}")
+            print(f"Duration: {self.charge_status['duration']}, Amount: ¥{self.charge_status['amount']}")
         else:
             print('You are not charging now')
             self.charge_status = None

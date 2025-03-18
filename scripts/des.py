@@ -66,7 +66,7 @@ def encrypt(data: dict[str, str]) -> str:
     """
     json_data = json.dumps(data, separators=(',', ':'))
     order = des_encrypt(json_data)
-    return f'order={order}'
+    return f"order={order}"
 
 def decrypt(encrypted_text: str) -> str:
     """
